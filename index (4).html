@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Tasks — Productivity Dashboard</title>
+
+  <!-- Google Fonts: Space Grotesk (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="dashboard">
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="header">
+      <p class="eyebrow">Productivity Dashboard</p>
+      <h1 class="title">My Tasks</h1>
+      <p class="subtitle">Stay organized, focused, and get things done.</p>
+    </header>
+
+    <!-- ===================== STATS ===================== -->
+    <section class="stats" aria-label="Task statistics">
+
+      <div class="stat-card">
+        <span class="stat-value" id="statRemaining">0</span>
+        <span class="stat-label">Remaining</span>
+      </div>
+
+      <div class="stat-card stat-card--ring">
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 80 80" aria-hidden="true">
+            <circle class="ring-track" cx="40" cy="40" r="34"></circle>
+            <circle class="ring-progress" id="ringProgress" cx="40" cy="40" r="34"></circle>
+          </svg>
+          <span class="ring-percent" id="statPercent">0%</span>
+        </div>
+        <span class="stat-label">Complete</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-value" id="statTotal">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-value" id="statCompleted">0</span>
+        <span class="stat-label">Completed</span>
+      </div>
+
+    </section>
+
+    <!-- ===================== COUNTER ===================== -->
+    <p class="task-counter" id="taskCounter" aria-live="polite">No tasks yet</p>
+
+    <!-- ===================== INPUT BAR ===================== -->
+    <section class="input-bar">
+      <label for="taskInput" class="visually-hidden">Add a new task</label>
+      <input
+        type="text"
+        id="taskInput"
+        class="task-input"
+        placeholder="What needs to be done?"
+        autocomplete="off"
+      />
+      <button id="addTaskBtn" class="btn-add" type="button" aria-label="Add task">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Add Task</span>
+      </button>
+    </section>
+
+    <!-- Validation message, hidden by default -->
+    <p class="validation-msg" id="validationMsg" role="alert"></p>
+
+    <!-- ===================== FILTERS ===================== -->
+    <section class="filter-bar" role="tablist" aria-label="Filter tasks">
+      <button class="filter-btn is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="filter-btn" data-filter="active" role="tab" aria-selected="false">Active</button>
+      <button class="filter-btn" data-filter="completed" role="tab" aria-selected="false">Completed</button>
+    </section>
+
+    <!-- ===================== TASK LIST ===================== -->
+    <section class="task-list-wrap">
+      <ul id="taskList" class="task-list"></ul>
+
+      <!-- Empty state, shown/hidden via JS -->
+      <div class="empty-state" id="emptyState">
+        <span class="empty-icon">✨</span>
+        <p>No tasks yet. Add something to get started!</p>
+      </div>
+    </section>
+
+    <!-- ===================== CLEAR COMPLETED ===================== -->
+    <div class="footer-actions">
+      <button id="clearCompletedBtn" class="btn-clear" type="button">Clear Completed</button>
+    </div>
+
+    <!-- ===================== EXPLANATION SECTION ===================== -->
+    <section class="explainer">
+      <h2 class="explainer-title">How DOM and Data Stay in Sync</h2>
+      <p class="explainer-text">
+        Every task lives inside a JavaScript array that acts as the single source of truth for the app.
+        Whenever you add, complete, or delete a task, that array is updated first, before anything on screen changes.
+        The interface then re-reads the array and rebuilds the visible task list to match it exactly.
+        This one-directional flow — data first, DOM second — keeps what you see and what the app "knows" perfectly in sync.
+      </p>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
